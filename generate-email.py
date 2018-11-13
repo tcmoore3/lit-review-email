@@ -1,4 +1,5 @@
 import calendar
+import collections
 import datetime
 
 td_tm = input('Today or tomorrow?\n1 - Today\n2 - Tomorrow\nChoose 1 or 2 [2]: ')
@@ -6,17 +7,27 @@ td_tm = {'1': 'today', '2': 'tomorrow'}.get(td_tm, 'tomorrow')
 time = input('Enter the time [3pm]: ')
 if time == '':
     time = '3pm'
-locations = {'1': 'the Research Auditorium', '2': 'B520-1122',
-        '3': 'the South Atrium', '4': 'B16-B001E', '5': 'G063 & 064'}
+locations = collections.OrderedDict([
+    ('1', 'the Research Auditorium'),
+    ('2', 'B520-1122'),
+    ('3', 'the South Atrium'),
+    ('4', 'B16-B001E'),
+    ('5', 'G063 & 064')])
 loc_str = 'Select location for meeting.\n'
 for n, loc in locations.items():
     loc_str += '{} - {}\n'.format(n, loc)
-loc_str += 'Choose: '
+loc_str += 'Choose [2]: '
 location = input(loc_str)
 location = locations.get(location, 'B520-1122')
-presenter = input('Who is presenting?\nEnter presenter: ')
-title = input('Enter the title of the paper: ')
-link = input('Enter the url to the paper: ')
+presenter = None
+while not presenter:
+    presenter = input('Who is presenting?\nEnter presenter: ')
+title = None
+while not title:
+    title = input('Enter the title of the paper: ')
+link = None
+while not link:
+    link = input('Enter the url to the paper: ')
 pdt_presenter = input('Who is presenting in the postdoc tank?\nEnter PDT presenter: ')
 input_str = 'Who are the next presenters?\nEnter the next 3 presenters, separated'
 input_str += ' by commas: '
